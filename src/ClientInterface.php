@@ -72,6 +72,15 @@ interface ClientInterface
     public function body($article);
 
     /**
+     * Send the ARTICLE command.
+     *
+     * @param $article
+     *
+     * @return \Rvdv\Nntp\Command\ArticleCommand
+     */
+    public function article($article);
+
+    /**
      * Send the HELP command.
      *
      * @return \Rvdv\Nntp\Command\HelpCommand
