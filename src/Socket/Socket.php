@@ -15,6 +15,16 @@ class Socket implements SocketInterface
     private $stream;
 
     /**
+     * @var float
+     */
+    private $timeout;
+
+    public function __construct($timeout = 1.0)
+    {
+        $this->timeout = (float)$timeout;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function enableCrypto($enable, $cryptoType = STREAM_CRYPTO_METHOD_TLS_CLIENT)
@@ -31,7 +41,7 @@ class Socket implements SocketInterface
      */
     public function connect($address)
     {
-        if (!$this->stream = @stream_socket_client($address, $errno, $errstr, 1.0, STREAM_CLIENT_CONNECT)) {
+        if (!$this->stream = @stream_socket_client($address, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT)) {
             throw new SocketException(sprintf('Connection to %s failed: %s', $address, $errstr));
         }
 
