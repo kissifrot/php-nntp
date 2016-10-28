@@ -66,37 +66,6 @@ class BodyCommand extends Command implements CommandInterface
         $this->result = implode("\r\n", $lines->toArray());
     }
 
-    public function getYencDecodedResult()
-    {
-        $encoded = [];
-
-        // Extract the yEnc string itself.
-        preg_match("/^(=ybegin.*=yend[^$]*)$/ims", $this->result, $encoded);
-        if (!isset($encoded[1])) {
-            return false;
-        }
-
-        $encoded = $encoded[1];
-
-        // Remove header and trailer
-        $encoded = preg_replace("/(^=ybegin.*\\r\\n)/im", "", $encoded, 1);
-        $encoded = preg_replace("/(^=ypart.*\\r\\n)/im", "", $encoded, 1);
-        $encoded = preg_replace("/(^=yend.*)/im", "", $encoded, 1);
-
-        $encoded = trim(str_replace("\r\n", "", $encoded));
-        $decoded = '';
-        for ($i = 0; $i < strlen($encoded); $i++) {
-            if ($encoded{$i} == "=") {
-                $i++;
-                $decoded .= chr((ord($encoded{$i}) - 64) - 42);
-            } else {
-                $decoded .= chr(ord($encoded{$i}) - 42);
-            }
-        }
-
-        return $decoded;
-    }
-
     public function onNoNewsGroupCurrentSelected(Response $response)
     {
         throw new RuntimeException('A group must be selected first before getting an article body.',

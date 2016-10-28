@@ -11,6 +11,7 @@
 
 namespace Rvdv\Nntp\Command;
 
+use Rvdv\Nntp\Exception\RuntimeException;
 use Rvdv\Nntp\Response\ResponseInterface;
 
 /**
@@ -43,6 +44,12 @@ interface CommandInterface
     public function getExpectedResponseCodes();
 
     public function getResult();
+
+    /**
+     * @throws RuntimeException
+     * @return mixed
+     */
+    public function getYencDecodedResult();
 
     /**
      * @return string
