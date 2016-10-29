@@ -234,7 +234,7 @@ class Connection implements ConnectionInterface
             $buffer = $this->socket->gets(self::BUFFER_SIZE);
 
             if (strlen($buffer) === 0) {
-                $uncompressed = @gzuncompress($line);
+                $uncompressed = gzuncompress($line);
 
                 if ($uncompressed !== false) {
                     break;

@@ -94,7 +94,8 @@ abstract class Command implements CommandInterface
         $encoded = trim(str_replace("\r\n", "", $encoded));
 
         $decoded = '';
-        for ($i = 0; $i < strlen($encoded); $i++) {
+        $encodedLength = strlen($encoded);
+        for ($i = 0; $i < $encodedLength; $i++) {
             if ($encoded{$i} == "=") {
                 $i++;
                 $decoded .= chr((ord($encoded{$i}) - 64) - 42);
